@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { addPost, deletePost, getPosts, updatePost } from "../controllers/postsController.js";
+import { validateSchema } from "../middlewares/validateShema.js";
+import validateToken from "../middlewares/validateToken.js";
+import validateUser from "../middlewares/validateUser.js";
+import { addPostSchema } from "../schema/postSchema.js";
+import { postUpdateSchema } from "../schema/postUpdateSchema.js";
+
+
+const postsRouter = Router();
+
+postsRouter.post('/addpost', validateToken, validateSchema(addPostSchema), addPost);
+
+postsRouter.get('/posts/:page', getPosts);
+
+postsRouter.put('/edit/:id', validateUser, validateSchema(postUpdateSchema), updatePost);
+
+postsRouter.delete('/posts/:id', validateUser, deletePost);
+
+export default postsRouter
