@@ -4,7 +4,7 @@ export async function getTrending(req,res){
     try {
         const trendingTopics = await db.query(`SELECT "nameHashtag", 
         COUNT(*) as count 
-        FROM "hashtags" 
+        FROM hashtags 
         GROUP BY "nameHashtag" 
         ORDER BY count DESC LIMIT 10`)
 
