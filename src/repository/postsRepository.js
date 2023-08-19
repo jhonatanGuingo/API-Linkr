@@ -14,7 +14,7 @@ export const selectPosts = (page) => {
     //precisa devolver: userImage, userName, description e link
     const limit = (page * 20) - 20
     return (
-        db.query(`SELECT posts."id" AS "postId", posts."link", posts."description", users."image", users."userName"
+        db.query(`SELECT posts."userId", posts."id" AS "postId", posts."link", posts."description", users."image", users."userName"
             FROM posts
             JOIN users
             ON posts."userId" = users."id"
