@@ -24,7 +24,7 @@ export async function postLogin(request, response) {
     const token = uuid()
     const { email, password } = request.body
     const existingUser = await db.query(`SELECT * FROM users WHERE email=$1;`, [email])
-    const {id, userName, image} = existingUser.rows[0]
+    const {image} = existingUser.rows[0]
 
     if (existingUser.rowCount === 0) {
         return response.status(401).send("Usuário não cadastrado")
@@ -37,7 +37,7 @@ export async function postLogin(request, response) {
 
     try {
         await db.query(`INSERT INTO session ("userId", token) VALUES ($1, $2);`, [existingUser.rows[0].id, token])
-        response.status(200).send({ token: token, image: image })
+        response.status(200).send({ token: token, image: image, userId: id })
     } catch (err) {
         response.status(500).send(err)
     }

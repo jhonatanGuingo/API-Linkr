@@ -1,3 +1,4 @@
+import { db } from "../database/databaseConnection.js"
 import { deteleUserPost, insertPost, selectPosts, updateUserPost } from "../repository/postsRepository.js"
 
 export async function addPost (req, res){
@@ -46,5 +47,14 @@ export async function deletePost (req, res){
         return res.status(200).send('Post deletado com sucesso!')
     }catch(err){
         return req.status(500).send(err.message)
+    }
+}
+
+export async function getAllPosts(req,res){
+    try{
+        const searchPosts = await db.query(`SELECT * FROM posts`);
+        return res.status(200).send(searchPosts.rows);
+    }catch(err){
+        return res.status(500).send(err.message)
     }
 }
