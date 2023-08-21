@@ -24,7 +24,6 @@ export async function postLogin(request, response) {
     const token = uuid()
     const { email, password } = request.body
     const existingUser = await db.query(`SELECT * FROM users WHERE email=$1;`, [email])
-    console.log(existingUser)
     const {image} = existingUser.rows[0]
     const {id} = existingUser.rows[0]
 

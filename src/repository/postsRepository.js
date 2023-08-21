@@ -10,6 +10,10 @@ export const insertPost = (body, locals) => {//locals = res.locals; body = req.b
     return db.query(`INSERT INTO posts ("userId", description, link) VALUES ($1, $2, $3)`, [user.userId, description, link])
 }
 
+export const getLastPost = () => {
+    return db.query(`SELECT id FROM posts ORDER BY "createdAt" DESC LIMIT 1`)
+}
+
 export const selectPosts = (page) => {
     //precisa devolver: userImage, userName, description e link
     const limit = page * 20

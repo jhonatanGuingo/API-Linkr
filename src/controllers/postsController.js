@@ -1,12 +1,13 @@
 import { db } from "../database/databaseConnection.js"
-import { deteleUserPost, insertPost, selectPosts, updateUserPost } from "../repository/postsRepository.js"
+import { deteleUserPost, getLastPost, insertPost, selectPosts, updateUserPost } from "../repository/postsRepository.js"
 
 export async function addPost (req, res){
     //req.body: {link: , description: }
     //res.locals.user: {userId}
     try{
         await insertPost(req.body, res.locals)
-        return res.status(201).send('Post criado com sucesso!')
+        const post = await getLastPost()
+        return res.status(201).send(post.rows[0])
     }catch(err){
         return res.status(500).send(err.message)
     }
