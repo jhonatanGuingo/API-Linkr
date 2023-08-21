@@ -37,7 +37,7 @@ export async function postLogin(request, response) {
 
     try {
         await db.query(`INSERT INTO session ("userId", token) VALUES ($1, $2);`, [existingUser.rows[0].id, token])
-        response.status(200).send({ token: token, image: image })
+        response.status(200).send({ token: token, image: image, userId: id })
     } catch (err) {
         response.status(500).send(err)
     }

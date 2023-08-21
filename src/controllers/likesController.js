@@ -1,8 +1,8 @@
 import { getlikeNumber, liked } from "../repositories/likesRepositorie.js";
 
 export async function getLikes(req,res){
-  const { userid } = req.body;
-  const { postid } = req.params;
+  const { postid, userid } = req.params;
+  console.log(postid)
   if(!userid || !postid ){return res.status(409).send('missing ids')}
     try{
     const likes = await getlikeNumber(postid);
