@@ -15,18 +15,20 @@ export async function getTrending(req,res){
 }
 
 export async function postHashtag(req, res){
-    const {postId, nameHashtag} = req.body;
-    const existingPost = await db.query(`SELECT * FROM posts WHERE id = $1`, [postId])
+    const {hashtags} = req.body;
+    //const existingPost = await db.query(`SELECT * FROM posts WHERE id = $1`, [postId])
 
-    if(existingPost.rowCount === 0 ){
-        return res.status(404).send("Post não existe")
-    }
+   // if(existingPost.rowCount === 0 ){
+   //     return res.status(404).send("Post não existe")
+   // }
 
     try {
-        await db.query(`INSERT INTO hashtags ("nameHashtag", "postId") VALUES ($1, $2)`, [nameHashtag, postId]);
+
+        for(const hashtag of req.body)
+        await db.query(`INSERT INTO hashtags ("nameHashtag", "postId") VALUES ($1, $2)`, [hashtag.nameHashtag, hashtag.postId]);
         return res.status(201).send("Hashtag salva")
     } catch (err) {
-        return res.status(500).send(err.message)
+        return res.status(500).send(req.body)
     }
 
 }
