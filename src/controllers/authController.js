@@ -26,7 +26,7 @@ export async function postLogin(request, response) {
     const existingUser = await db.query(`SELECT * FROM users WHERE email=$1;`, [email])
     const {image} = existingUser.rows[0]
     const {id} = existingUser.rows[0]
-    
+
     if (existingUser.rowCount === 0) {
         return response.status(401).send("Usuário não cadastrado")
     }
