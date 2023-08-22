@@ -35,6 +35,7 @@ export async function postHashtag(req, res){
 
 export async function getPostsbyHashtag(req,res){
     const {hashtag} = req.params;
+    
     try {
         const searchPostsByHashtag = await db.query(`SELECT posts."id" AS "postId", posts."link", posts."description", users."image", users."userName"
         FROM posts
