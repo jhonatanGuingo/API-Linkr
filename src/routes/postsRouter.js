@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addPost, deletePost, getAllPosts, getPosts, updatePost } from "../controllers/postsController.js";
+import { addPost, deletePost, getAllPosts, getNumbNewPosts, getPosts, updatePost } from "../controllers/postsController.js";
 import { validateSchema } from "../middlewares/validateShema.js";
 import validateToken from "../middlewares/validateToken.js";
 import validateUser from "../middlewares/validateUser.js";
@@ -18,5 +18,7 @@ postsRouter.put('/edit/:id', validateUser, validateSchema(postUpdateSchema), upd
 postsRouter.delete('/posts/:id', validateUser, deletePost);
 
 postsRouter.get('/posts', getAllPosts);
+
+postsRouter.get('/newposts/:timestamp/:id', getNumbNewPosts)
 
 export default postsRouter
