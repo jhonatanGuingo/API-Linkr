@@ -34,3 +34,7 @@ export const updateUserPost = (description, postId) => {
 export const deteleUserPost = (postId) => {
     return db.query(`DELETE FROM posts WHERE id = $1`, [postId])
 }
+
+export const selectNumNewPosts = (date, id) => {
+    return db.query(`SELECT COUNT(*) as "numNewPosts" FROM posts WHERE "createdAt" > $1 AND "userId" <> $2`, [date, id])
+}
