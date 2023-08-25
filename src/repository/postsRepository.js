@@ -16,14 +16,15 @@ export const getLastPost = () => {
 
 export const selectPosts = (page) => {
     //precisa devolver: userImage, userName, description e link
-    const limit = page * 20
+    const limit = (page * 10) - 10
     return (
         db.query(`SELECT posts."userId", posts."id" AS "postId", posts."link", posts."description", users."image", users."userName"
             FROM posts
             JOIN users
             ON posts."userId" = users."id"
             ORDER BY posts."createdAt" DESC
-            LIMIT $1`, [limit])
+            LIMIT 10
+            OFFSET $1`, [limit])
     )
 }
 
