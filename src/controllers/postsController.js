@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 import { db } from "../database/databaseConnection.js"
-import { deteleUserPost, getLastPost, insertPost, selectNumNewPosts, selectPosts, updateUserPost } from "../repository/postsRepository.js"
+import { deteleUserPost, getLastPost, insertPost, selectNumNewPosts, selectPosts, selectUserPosts, updateUserPost } from "../repository/postsRepository.js"
 
 export async function addPost (req, res){
     //req.body: {link: , description: }
@@ -73,4 +73,17 @@ export async function getNumbNewPosts(req, res){
     }catch(err){
         return res.status(500).send(err.message)
     }
+}
+
+
+export async function getUserPosts(req,res){
+    const { user } = req.params;
+    try{
+    const result = await selectUserPosts(user);
+    return res.status(200).send(result.rows);
+    }
+    catch(err){
+        return res.status(500).send(err)
+    }
+
 }

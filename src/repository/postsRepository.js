@@ -38,3 +38,16 @@ export const deteleUserPost = (postId) => {
 export const selectNumNewPosts = (date, id) => {
     return db.query(`SELECT COUNT(*) as "numNewPosts" FROM posts WHERE "createdAt" > $1 AND "userId" <> $2`, [date, id])
 }
+
+
+export const selectUserPosts = (userId) => {
+
+    return (
+        db.query(`SELECT posts."userId", posts."id" AS "postId", posts."link", posts."description", users."image", users."userName"
+        FROM posts
+        JOIN users
+        ON posts."userId" = users."id"
+        WHERE posts."userId" = $1
+        ORDER BY posts."createdAt" DESC`, [userId])
+    )
+}
