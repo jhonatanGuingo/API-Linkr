@@ -66,7 +66,6 @@ export async function getNumbNewPosts(req, res){
     //1692743052528
     const {timestamp, id} = req.params
     const date = dayjs(Number(timestamp)).format('YYYY-MM-DD HH:mm:ss')
-    console.log(date)
     try{
         const num = await selectNumNewPosts(date, id)
         return res.status(200).send(num.rows[0])
