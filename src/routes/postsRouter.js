@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addPost, deletePost, getAllPosts, getNumbNewPosts, getPosts, updatePost } from "../controllers/postsController.js";
+import { addPost, deletePost, getAllPosts, getNumbNewPosts, getPosts, getUserPosts, updatePost } from "../controllers/postsController.js";
 import { validateSchema } from "../middlewares/validateShema.js";
 import validateToken from "../middlewares/validateToken.js";
 import validateUser from "../middlewares/validateUser.js";
@@ -12,6 +12,8 @@ const postsRouter = Router();
 postsRouter.post('/addpost', validateToken, validateSchema(addPostSchema), addPost);
 
 postsRouter.get('/posts/:page', getPosts);
+
+postsRouter.get('/userposts/:user', getUserPosts);
 
 postsRouter.put('/edit/:id', validateUser, validateSchema(postUpdateSchema), updatePost);
 
